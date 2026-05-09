@@ -1,18 +1,34 @@
 const mongoose = require("mongoose");
 
 const complaintSchema = new mongoose.Schema({
-    title:String,
-    description:String,
-    category:String,
+    title:{
+        type:String,
+        required:true,
+        trim:true,
+    },
+    description:{
+        type:String,
+        required:true,
+    },
+    category:{
+        type:String,
+        required:true,
+    },
+    category:{
+        type:String,
+        required:true,
+        enum:["academic","facilities","hostel","other"],
+    },
     status:{
         type:String,
         enum:["Pending","In Progress","Resolved"],
         default:"Pending"
     },
-    student:{
+    user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    }
+        ref:"User",
+        required:true,
+    },
 
 },{timestamps:true});
 
