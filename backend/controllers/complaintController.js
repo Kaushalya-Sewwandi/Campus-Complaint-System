@@ -62,6 +62,7 @@ exports.updateStatus = async (req, res) => {
 
     complaint.status=status;
     await complaint.save();
+    
 
     res.json(complaint);
 
