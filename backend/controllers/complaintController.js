@@ -4,7 +4,7 @@ exports.submitComplaint = async (req, res) => {
   try {
     const { title, description, category } = req.body;
 
-    if(!title || !decription || !category){
+    if(!title || !description || !category){
       return res.status(400).json({message:"All fields are required"});
     }
     const complaint = await Complaint.create({
@@ -54,7 +54,7 @@ exports.updateStatus = async (req, res) => {
     if(!validStatuses.includes(status)){
       return res.status(400).json({message:"Invalid status"});
     }
-    const complaint = await Complaint.findById(req.parms.id);
+    const complaint = await Complaint.findById(req.params.id);
     
     if(!complaint){
       return res.status(404).json({message:"Complaint not found"});
@@ -65,6 +65,23 @@ exports.updateStatus = async (req, res) => {
     
 
     res.json(complaint);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deleteComplaint = async (req, res) => {
+  try {
+    const complaint = await Complaint.findById(req.params.id);
+
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    await complaint.deleteOne();
+
+    res.json({ message: "Complaint deleted successfully" });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
