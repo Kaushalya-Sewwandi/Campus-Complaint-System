@@ -5,8 +5,18 @@ const jwt = require("jsonwebtoken");
 
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    let { name, email, password } = req.body;
 
+    name = name?.trim();
+    email = email?.trim().toLowerCase();
+
+    if(!name || !email || !password){
+      return res.status(400).json({ message : "All fields are required"});
+    }
+
+    if(!password || password.length < 6){
+      return res.status(400).json({message: "Password must be at least 6 characters"})
+    }
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
@@ -18,11 +28,18 @@ exports.registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role:"student"
     });
 
     res.status(201).json({
       message: "User registered successfully",
-      user,
+      user:{
+        id:user._id,
+        name:user.name,
+        email:user.email,
+        role:user.role
+
+      }
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -32,16 +49,22 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+
+    email = email?.trim().toLowerCase();
+
+    if(!email || !password){
+      return res.status(400).json({message:"All fields are required"});
+    }
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const token = jwt.sign(
