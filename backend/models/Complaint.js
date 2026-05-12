@@ -10,21 +10,19 @@ const complaintSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    category:{
-        type:String,
-        required:true,
-    },
-    category:{
-        type:String,
-        required:true,
-        enum:["academic","facilities","hostel","other"],
-    },
+
+    category: {
+    type: String,
+    required: true,
+    enum: ["General", "Hostel", "Canteen", "Academics", "Transport", "Facilities"],
+    set: v => v.charAt(0).toUpperCase() + v.slice(1).toLowerCase()
+},
     status:{
         type:String,
-        enum:["Pending","In Progress","Resolved"],
-        default:"Pending"
+        enum:["pending","in progress","resolved"],
+        default:"pending"
     },
-    user:{
+    student:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true,

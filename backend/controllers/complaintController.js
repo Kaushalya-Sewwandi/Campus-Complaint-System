@@ -11,7 +11,7 @@ exports.submitComplaint = async (req, res) => {
       title,
       description,
       category,
-      student:req.user.id,
+      student: req.user.id || req.user._id
     });
 
     res.status(201).json(complaint);
