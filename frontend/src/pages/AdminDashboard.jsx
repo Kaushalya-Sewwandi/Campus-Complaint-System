@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/auth";
+import api from "../utils/api";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -17,16 +17,7 @@ function AdminDashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(
-        "http://localhost:5000/api/complaints/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await api.get("/api/complaints/all");
 
       setComplaints(res.data);
     } catch (err) {
@@ -36,17 +27,7 @@ function AdminDashboard() {
 
   const updateStatus = async (id, status) => {
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.put(
-        `http://localhost:5000/api/complaints/status/${id}`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.put(`/api/complaints/${id}`, { status });
 
       fetchComplaints();
     } catch (err) {
@@ -56,16 +37,7 @@ function AdminDashboard() {
 
   const deleteComplaint = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.delete(
-        `http://localhost:5000/api/complaints/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.delete(`/api/complaints/${id}`);
 
       fetchComplaints();
     } catch (err) {
@@ -78,40 +50,54 @@ function AdminDashboard() {
     return <h2>Access Denied</h2>;
   }
 return (
-  <div className="container">
-    <h2>Admin Dashboard</h2>
-
-    <button className="logout" onClick={() => logout(navigate)}>
-      Logout
-    </button>
-
-    {complaints.map((c) => (
-      <div key={c._id} className="card">
-        <h3>{c.title}</h3>
-        <p>{c.description}</p>
-        <p><b>Category:</b> {c.category}</p>
-        <p><b>Status:</b> {c.status}</p>
-
+  <div className="dashboard">
+      <div className="dashboard-header">
         <div>
-          <button className="pending" onClick={() => updateStatus(c._id, "pending")}>
-            Pending
-          </button>
-
-          <button className="progress" onClick={() => updateStatus(c._id, "in-progress")}>
-            In Progress
-          </button>
-
-          <button className="resolved" onClick={() => updateStatus(c._id, "resolved")}>
-            Resolved
-          </button>
+          <h2>Admin Dashboard</h2>
+          <p className="muted">Manage and resolve student complaints.</p>
         </div>
 
-        <button className="delete" onClick={() => deleteComplaint(c._id)}>
-          Delete
+        <button className="btn btn-danger" onClick={() => logout(navigate)}>
+          Logout
         </button>
       </div>
-    ))}
-  </div>
+
+      <div className="grid">
+        {complaints.map((c) => (
+          <div key={c._id} className="panel">
+            <div className="panel-top">
+              <div>
+                <h3 className="panel-title">{c.title}</h3>
+                <div className="chips">
+                  <span className="chip">{c.category}</span>
+                  <span className={`chip chip-${c.status}`}>{c.status}</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="panel-body">{c.description}</p>
+
+            <div className="panel-actions">
+              <div className="btn-row">
+                <button className="btn btn-ghost" onClick={() => updateStatus(c._id, "pending")}>
+                  Pending
+                </button>
+                <button className="btn btn-ghost" onClick={() => updateStatus(c._id, "in-progress")}>
+                  In progress
+                </button>
+                <button className="btn btn-ghost" onClick={() => updateStatus(c._id, "resolved")}>
+                  Resolved
+                </button>
+              </div>
+
+              <button className="btn btn-danger" onClick={() => deleteComplaint(c._id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
 );
  
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await api.post("/api/auth/register", {
         name,
         email,
         password,
@@ -25,34 +26,63 @@ function Register() {
     }
   };
 return (
-  <div className="container">
-    <div className="card">
-      <h2>Register</h2>
+  <div className="auth">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-badge">
+            <img src="/uov-logo.png" alt="University of Vavuniya logo" />
+          </div>
+          <div>
+            <h2>Create account</h2>
+            <p className="muted">Set up your student account in seconds.</p>
+          </div>
+        </div>
 
-      <form onSubmit={handleRegister}>
-        <input
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br /><br />
+        <form onSubmit={handleRegister} className="form">
+          <label className="field">
+            <span>Name</span>
+            <input
+              placeholder="Your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              autoComplete="name"
+            />
+          </label>
 
-        <input
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br /><br />
+          <label className="field">
+            <span>Email</span>
+            <input
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </label>
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br /><br />
+          <label className="field">
+            <span>Password</span>
+            <input
+              type="password"
+              placeholder="At least 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+            />
+          </label>
 
-        <button type="submit">Register</button>
-      </form>
+          <button className="btn" type="submit">
+            Create account
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <span className="muted">Already have an account?</span>{" "}
+          <Link to="/login" className="link">
+            Sign in
+          </Link>
+        </div>
+      </div>
     </div>
-  </div>
 );
   
 }
