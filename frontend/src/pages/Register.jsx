@@ -22,7 +22,10 @@ function Register() {
       alert("Registration successful!");
       navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.message || "Register failed");
+      
+    console.log(err.response?.data || err.message);
+    alert(err.response?.data?.message || "Register failed");
+
     }
   };
 return (
