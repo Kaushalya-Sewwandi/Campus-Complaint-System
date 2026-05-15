@@ -1,8 +1,8 @@
-const User = require("../models/User");
+const Student = require("../models/Student");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// REGISTER
+
 exports.registerUser = async (req, res) => {
   try {
     let { name, email, password } = req.body;
@@ -20,15 +20,15 @@ exports.registerUser = async (req, res) => {
       });
     }
 
-    const userExists = await User.findOne({ email });
+    const userExists = await Student.findOne({ email });
 
     if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Student already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    const student = await Student.create({
       name,
       email,
       password: hashedPassword,
@@ -36,12 +36,12 @@ exports.registerUser = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "User registered successfully",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+      message: "Student registered successfully",
+      student: {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        role: student.role,
       },
     });
   } catch (error) {
@@ -50,7 +50,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-// LOGIN
+
 exports.loginUser = async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -61,13 +61,13 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const user = await User.findOne({ email });
+    const student = await Student.findOne({ email });
 
-    if (!user) {
+    if (!student) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, student.password);
 
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -77,11 +77,10 @@ exports.loginUser = async (req, res) => {
       return res.status(500).json({ message: "JWT secret missing" });
     }
 
-    
     const token = jwt.sign(
       {
-        id: user._id.toString(),
-        role: user.role,
+        id: student._id.toString(),
+        role: student.role,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
@@ -90,11 +89,11 @@ exports.loginUser = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+      student: {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        role: student.role,
       },
     });
   } catch (error) {
