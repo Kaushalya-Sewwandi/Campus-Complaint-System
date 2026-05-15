@@ -16,12 +16,7 @@ const protect = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    
-    req.user = {
-      id: decoded.id || decoded._id,
-      email: decoded.email,
-      role: decoded.role,
-    };
+    req.user = decoded; // 👈 IMPORTANT CHANGE
 
     next();
   } catch (error) {
