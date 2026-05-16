@@ -78,7 +78,7 @@ exports.updateComplaintStatus = async (req, res) => {
 };
 
 
-// ➤ DELETE COMPLAINT (Admin)
+
 exports.deleteComplaint = async (req, res) => {
   try {
     const complaint = await Complaint.findById(req.params.id);

@@ -482,7 +482,7 @@ h3 {
   border-color: rgba(106, 15, 29, 0.35);
 }
 
-/* Button */
+
 .btn,
 .card button {
   width: 100%;
@@ -547,7 +547,7 @@ h3 {
   color: var(--muted);
 }
 
-/* Dashboards */
+
 .dashboard {
   padding: 0;
   color: var(--text);
@@ -717,7 +717,7 @@ h3 {
   }
 }
 
-/* Footer */
+
 .footer {
   margin-top: 0;
   padding: 18px 16px 22px;
@@ -752,7 +752,7 @@ h3 {
   color: #9ca3af;
 }
 
-/* —— Landing (marketing homepage) —— */
+
 .landing {
   color: var(--text);
 }

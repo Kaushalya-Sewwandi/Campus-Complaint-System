@@ -23,11 +23,11 @@ function Login() {
         password,
       });
 
-      // Save token + user
+      
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // Redirect based on role
+     
       if (res.data.user.role === "admin") {
         navigate("/admin");
       } else {
