@@ -5,13 +5,18 @@ const jwt = require("jsonwebtoken");
 
 exports.registerUser = async (req, res) => {
   try {
-    let { name, email, password } = req.body;
+    let { name, email, password, role } = req.body;
 
     name = name?.trim();
     email = email?.trim().toLowerCase();
+    role = role?.trim().toLowerCase();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (!["student", "admin"].includes(role)) {
+      return res.status(400).json({ message: "Role must be student or admin" });
     }
 
     if (password.length < 6) {
@@ -23,7 +28,7 @@ exports.registerUser = async (req, res) => {
     const userExists = await Student.findOne({ email });
 
     if (userExists) {
-      return res.status(400).json({ message: "Student already exists" });
+      return res.status(400).json({ message: "User already exists with this email" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,11 +37,11 @@ exports.registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: "student",
+      role,
     });
 
     res.status(201).json({
-      message: "Student registered successfully",
+      message: "Account registered successfully",
       student: {
         id: student._id,
         name: student.name,

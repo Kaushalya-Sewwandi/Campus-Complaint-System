@@ -411,6 +411,51 @@ h3 {
   color: var(--muted);
 }
 
+.role-field {
+  border: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.role-field legend {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.role-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.role-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: #ffffff;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.role-option:has(input:checked) {
+  border-color: rgba(106, 15, 29, 0.45);
+  background: rgba(106, 15, 29, 0.06);
+  color: var(--uov-maroon);
+}
+
+.role-option input {
+  accent-color: var(--uov-maroon);
+}
+
 .card input,
 .card select,
 .card textarea,

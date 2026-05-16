@@ -7,6 +7,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Register() {
         name: name.trim(),
         email: email.trim().toLowerCase(),
         password,
+        role,
       });
 
       alert("Registration successful!");
@@ -40,7 +42,7 @@ function Register() {
           </div>
           <div>
             <h2>Create account</h2>
-            <p className="muted">Set up your student account in seconds.</p>
+            <p className="muted">Create your account and choose your role.</p>
           </div>
         </div>
 
@@ -77,6 +79,33 @@ function Register() {
               required
             />
           </label>
+
+          <fieldset className="field role-field">
+            <legend>Role</legend>
+            <div className="role-options" role="radiogroup" aria-label="Account role">
+              <label className="role-option">
+                <input
+                  type="radio"
+                  name="role"
+                  value="student"
+                  checked={role === "student"}
+                  onChange={() => setRole("student")}
+                />
+                <span>Student</span>
+              </label>
+              <label className="role-option">
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={role === "admin"}
+                  onChange={() => setRole("admin")}
+                />
+                <span>Admin</span>
+              </label>
+            </div>
+            <p className="hint">Admins can manage and resolve grievances after sign-in.</p>
+          </fieldset>
 
           <button className="btn" type="submit" disabled={loading}>
             {loading ? "Creating account..." : "Create account"}
