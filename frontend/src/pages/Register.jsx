@@ -1,39 +1,42 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
+import api, { getApiErrorMessage } from "../utils/api";
 import { Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await api.post("/api/auth/register", {
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
         password,
       });
 
       alert("Registration successful!");
       navigate("/login");
     } catch (err) {
-      
-    console.log(err.response?.data || err.message);
-    alert(err.response?.data?.message || "Register failed");
-
+      alert(getApiErrorMessage(err, "Register failed. Please try again."));
+    } finally {
+      setLoading(false);
     }
   };
-return (
-  <div className="auth">
+
+  return (
+    <div className="auth">
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-badge">
-            <img src="/uov-logo.png" alt="University of Vavuniya logo" />
+            <img src="/uov-logo.png" alt="University logo" />
           </div>
           <div>
             <h2>Create account</h2>
@@ -48,17 +51,18 @@ return (
               placeholder="Your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
+              required
             />
           </label>
 
           <label className="field">
             <span>Email</span>
             <input
+              type="email"
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
+              required
             />
           </label>
 
@@ -69,12 +73,13 @@ return (
               placeholder="At least 6 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
+              minLength={6}
+              required
             />
           </label>
 
-          <button className="btn" type="submit">
-            Create account
+          <button className="btn" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Create account"}
           </button>
         </form>
 
@@ -86,8 +91,7 @@ return (
         </div>
       </div>
     </div>
-);
-  
+  );
 }
 
 export default Register;

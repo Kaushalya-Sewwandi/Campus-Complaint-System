@@ -10,22 +10,29 @@ const adminRoutes = require("./routes/adminRoutes");
 dotenv.config();
 
 const app = express();
-app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
+
+
 
 app.use(cors({
-  origin:"http://localhost:5173",
-  credentials:true
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+      return callback(null, true);
+    }
+    callback(null, false);
+  },
+  credentials: true,
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/complaints", complaintRoutes);
 app.use("/api/admin", adminRoutes);
 
 
 app.get("/", (req, res) => {
-  res.send("Campus Complaint System API is running...");
+  res.send("Smart University Grievance Management System API is running...");
 });
 
   app.use((err, req, res, next) => {

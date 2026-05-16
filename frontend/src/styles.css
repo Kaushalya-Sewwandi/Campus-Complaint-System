@@ -166,6 +166,12 @@ h3 {
   transform: translateY(-1px);
 }
 
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;

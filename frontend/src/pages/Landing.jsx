@@ -38,13 +38,13 @@ export default function Landing() {
 
       <header className="landing-masthead">
         <div className="landing-wrap landing-masthead-inner">
-          <Link to="/" className="landing-brand-block">
+          <div className="landing-brand-block">
             <img className="landing-brand-logo" src="/uov-logo.png" alt="University of Vavuniya" />
             <div className="landing-brand-text">
-              <span className="landing-brand-title">Campus Complaint System</span>
+              <span className="landing-brand-title">Smart University Grievance Management System</span>
               <span className="landing-brand-sub">University of Vavuniya</span>
             </div>
-          </Link>
+          </div>
 
           <div className="landing-contact-row">
             <div className="landing-contact-item">
@@ -110,9 +110,9 @@ export default function Landing() {
         <div className="landing-hero-shade" aria-hidden />
         <div className="landing-wrap landing-hero-inner">
           <p className="landing-hero-kicker">Do you need any help?</p>
-          <h1 className="landing-hero-title">Welcome to our campus complaint portal</h1>
+          <h1 className="landing-hero-title">Welcome to the university grievance portal</h1>
           <p className="landing-hero-lead">
-            Submit and track complaints securely. Administrators review and update every case with
+            Submit and track grievances securely. Administrators review and update every case with
             transparency.
           </p>
           <div className="landing-hero-actions">
@@ -188,7 +188,7 @@ export default function Landing() {
             </article>
             <article className="landing-feature-card">
               <div className="landing-feature-media landing-feature-media--2" aria-hidden />
-              <h3 className="landing-feature-title">2. Submit a complaint</h3>
+              <h3 className="landing-feature-title">2. Submit a grievance</h3>
               <p className="landing-feature-text">
                 Choose a category, describe the issue, and submit. You can follow up from your dashboard anytime.
               </p>
@@ -200,7 +200,7 @@ export default function Landing() {
               <div className="landing-feature-media landing-feature-media--3" aria-hidden />
               <h3 className="landing-feature-title">3. Admin resolution</h3>
               <p className="landing-feature-text">
-                Administrators review complaints, update status, and keep the campus informed with consistent records.
+                Administrators review grievances, update status, and keep the campus informed with consistent records.
               </p>
               <Link to="/login" className="landing-feature-link">
                 Learn more <span aria-hidden>›</span>
@@ -233,7 +233,7 @@ export default function Landing() {
         <div className="landing-wrap landing-cta-inner">
           <div>
             <h2 className="landing-cta-title">Ready to report an issue?</h2>
-            <p className="landing-cta-desc">Use the portal for official campus complaint management.</p>
+            <p className="landing-cta-desc">Use the portal for official university grievance management.</p>
           </div>
           <div className="landing-cta-actions">
             <Link to="/register" className="landing-hero-btn">

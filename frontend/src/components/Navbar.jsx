@@ -16,10 +16,13 @@ function Navbar() {
     <header className="site-header">
       <nav className="navbar" aria-label="Site">
         <div className="navbar-left">
-          <Link to="/" className="brand brand--logo-only" title="University of Vavuniya — Home">
-            <span className="crest crest--plain" aria-hidden="true">
-              <img className="crest-img" src="/uov-logo.png" alt="" />
+          <span className="brand brand--logo-only">
+            <span className="crest crest--plain">
+              <img className="crest-img" src="/uov-logo.png" alt="University of Vavuniya" />
             </span>
+          </span>
+          <Link to="/" className="navlink navlink--text">
+            Home
           </Link>
         </div>
 

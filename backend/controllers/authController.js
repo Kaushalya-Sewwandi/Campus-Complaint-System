@@ -1,4 +1,4 @@
-const Student = require("../models/Student");
+const Student = require("../models/student");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -86,15 +86,17 @@ exports.loginUser = async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    const user = {
+      id: student._id,
+      name: student.name,
+      email: student.email,
+      role: student.role,
+    };
+
     res.json({
       message: "Login successful",
       token,
-      student: {
-        id: student._id,
-        name: student.name,
-        email: student.email,
-        role: student.role,
-      },
+      user,
     });
   } catch (error) {
     console.error("Login Error:", error);

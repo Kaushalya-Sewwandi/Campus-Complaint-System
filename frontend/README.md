@@ -1,29 +1,31 @@
-# 🎓 Campus Complaint System
+# Smart University Grievance Management System
 
-## 📌 Project Title
-Campus Complaint System (MERN Stack Web Application)
+## Project Title
+Smart University Grievance Management System (MERN Stack Web Application)
 
-## ❗ Problem Description
-In many educational institutions, students face difficulties in reporting and tracking complaints related to academic, infrastructure, or facility issues. Traditional methods such as manual reporting are inefficient, slow, and lack proper tracking mechanisms.
+**Repository:** [https://github.com/Kaushalya-Sewwandi/Campus-Complaint-System](https://github.com/Kaushalya-Sewwandi/Campus-Complaint-System)
 
-## 💡 Proposed Solution
-The Campus Complaint System is a web-based application designed to digitize the complaint management process. It allows students to submit complaints online and enables administrators to manage and resolve them efficiently with real-time status tracking. This improves transparency, communication, and response time within the campus environment.
+## Problem Description
+In many educational institutions, students face difficulties in reporting and tracking grievances related to academic, infrastructure, or facility issues. Traditional methods such as manual reporting are inefficient, slow, and lack proper tracking mechanisms.
 
-## ✨ Features
+## Proposed Solution
+The Smart University Grievance Management System is a web-based application designed to digitize the grievance management process. It allows students to submit grievances online and enables administrators to manage and resolve them efficiently with real-time status tracking. This improves transparency, communication, and response time within the campus environment.
+
+## Features
 
 ### Student Module
 - Register and login
-- Submit complaints
-- View complaint status
+- Submit grievances
+- View grievance status
 - Track updates
 
 ### Admin Module
 - Secure login
-- View all complaints
-- Update complaint status (Pending / In Progress / Resolved)
-- Manage complaint records
+- View all grievances
+- Update grievance status (Pending / In Progress / Resolved)
+- Manage grievance records
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 Frontend:
 - React.js
@@ -40,7 +42,7 @@ Backend:
 - JWT Authentication
 - bcryptjs
 
-## 📡 API Endpoints
+## API Endpoints
 
 Authentication:
 POST /api/auth/register
@@ -75,43 +77,59 @@ Example:
   "status": "Resolved"
 }
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 Clone repository:
-git clone https://github.com/your-username/campus-complaint-system.git
-cd campus-complaint-system
+```bash
+git clone https://github.com/Kaushalya-Sewwandi/Campus-Complaint-System.git
+cd Campus-Complaint-System
+```
 
 Backend setup:
+```bash
 cd backend
 npm install
+```
 
 Create .env file:
+```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
+```
 
 Run backend:
+```bash
 node server.js
+```
 OR
+```bash
 nodemon server.js
+```
 
 Frontend setup:
+```bash
 cd frontend
 npm install
-npm start
+npm run dev
+```
 
-## 🚀 How to Run
+## How to Run
 
 Backend:
+```bash
 cd backend
 node server.js
+```
 
 Frontend:
+```bash
 cd frontend
-npm start
+npm run dev
+```
 
-## 👨‍🎓 Author
-Student Project – Campus Complaint System
+## Author
+Student Project – Smart University Grievance Management System
 
-## 📜 License
+## License
 For academic purposes only

@@ -13,5 +13,12 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export default api;
+export function getApiErrorMessage(err, fallback) {
+  if (err.response?.data?.message) return err.response.data.message;
+  if (err.code === "ERR_NETWORK" || !err.response) {
+    return "Cannot reach the server. Start the backend (port 5000) and try again.";
+  }
+  return fallback;
+}
 
+export default api;
